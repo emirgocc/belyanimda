@@ -7,6 +7,7 @@ import {
   Alert,
   ActivityIndicator,
   RefreshControl,
+  AppState,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,19 +18,54 @@ export default function NotificationsScreen() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [appState, setAppState] = useState(AppState.currentState);
 
   useEffect(() => {
     loadNotifications();
-  }, []);
+    
+    // App state değişikliklerini dinle (arka plan -> ön plan)
+    const handleAppStateChange = (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === 'active') {
+        console.log('Uygulama ön plana geldi, bildirimler güncelleniyor...');
+        loadNotifications();
+      }
+      setAppState(nextAppState);
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+    // Periyodik güncelleme (her 1 dakikada bir)
+    const interval = setInterval(() => {
+      console.log('Periyodik bildirim güncellemesi...');
+      loadNotifications();
+    }, 60000); // 1 dakika
+
+    return () => {
+      subscription?.remove();
+      clearInterval(interval);
+    };
+  }, [appState]);
 
   const loadNotifications = async () => {
     try {
       setLoading(true);
+      // Önce mobile data endpoint'ini dene (daha verimli)
+      try {
+        const mobileData = await apiService.getMobileData();
+        if (mobileData.success && mobileData.data.notifications) {
+          setNotifications(mobileData.data.notifications);
+          return;
+        }
+      } catch (error) {
+        console.log('Mobile data endpoint başarısız, fallback kullanılıyor...');
+      }
+      
+      // Fallback: ayrı ayrı bildirim çağrısı
       const data = await apiService.getNotifications();
       setNotifications(data);
     } catch (error) {
       console.error('Bildirimler yüklenirken hata:', error);
-      Alert.alert('Hata', 'Bildirimler yüklenirken bir hata oluştu.');
+      // Hata durumunda mevcut verileri koru, sadece loading'i kapat
     } finally {
       setLoading(false);
     }
@@ -62,10 +98,10 @@ export default function NotificationsScreen() {
         </View>
         <View style={styles.notificationContent}>
           <Text style={styles.notificationTitle}>{item.title}</Text>
-          <Text style={styles.notificationDate}>{formatDate(item.date)}</Text>
+          <Text style={styles.notificationDate}>{formatDate(item.createdAt)}</Text>
         </View>
       </View>
-      <Text style={styles.notificationMessage}>{item.message}</Text>
+      <Text style={styles.notificationMessage}>{item.description}</Text>
     </View>
   );
 

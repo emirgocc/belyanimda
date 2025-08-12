@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const PORT = config.PORT || 3000;
+const PORT = 3000;
 
 // Initialize database
 await initializeDatabase();
@@ -101,8 +101,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📱 Mobile data endpoint: http://localhost:${PORT}/mobile/data`);
-  console.log(`🏥 Health check: http://localhost:${PORT}/health`);
+app.listen(3000, '0.0.0.0', () => {
+  console.log("Server çalışıyor");
+  console.log(`📱 Mobile data endpoint: http://localhost:3000/mobile/data`);
+  console.log(`🏥 Health check: http://localhost:3000/health`);
 });

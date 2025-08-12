@@ -9,6 +9,7 @@ import {
   Alert,
   ActivityIndicator,
   Linking,
+  AppState,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { apiService } from '../services/api';
@@ -17,19 +18,54 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function HomeScreen() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [appState, setAppState] = useState(AppState.currentState);
 
   useEffect(() => {
     loadServices();
-  }, []);
+    
+    // App state değişikliklerini dinle (arka plan -> ön plan)
+    const handleAppStateChange = (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === 'active') {
+        console.log('Uygulama ön plana geldi, hizmetler güncelleniyor...');
+        loadServices();
+      }
+      setAppState(nextAppState);
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+    // Periyodik güncelleme (her 2 dakikada bir)
+    const interval = setInterval(() => {
+      console.log('Periyodik hizmet güncellemesi...');
+      loadServices();
+    }, 120000); // 2 dakika
+
+    return () => {
+      subscription?.remove();
+      clearInterval(interval);
+    };
+  }, [appState]);
 
   const loadServices = async () => {
     try {
       setLoading(true);
+      // Önce mobile data endpoint'ini dene (daha verimli)
+      try {
+        const mobileData = await apiService.getMobileData();
+        if (mobileData.success && mobileData.data.services) {
+          setServices(mobileData.data.services);
+          return;
+        }
+      } catch (error) {
+        console.log('Mobile data endpoint başarısız, fallback kullanılıyor...');
+      }
+      
+      // Fallback: ayrı ayrı servis çağrısı
       const data = await apiService.getServices();
       setServices(data);
     } catch (error) {
       console.error('Hizmetler yüklenirken hata:', error);
-      Alert.alert('Hata', 'Hizmetler yüklenirken bir hata oluştu.');
+      // Hata durumunda mevcut verileri koru, sadece loading'i kapat
     } finally {
       setLoading(false);
     }
@@ -37,10 +73,10 @@ export default function HomeScreen() {
 
   const handleServicePress = async (service) => {
     try {
-      if (service.linkUrl) {
-        const supported = await Linking.canOpenURL(service.linkUrl);
+      if (service.url) {
+        const supported = await Linking.canOpenURL(service.url);
         if (supported) {
-          await Linking.openURL(service.linkUrl);
+          await Linking.openURL(service.url);
         } else {
           Alert.alert('Hata', 'Bu bağlantı açılamıyor.');
         }
@@ -59,10 +95,11 @@ export default function HomeScreen() {
     >
       <View style={styles.serviceCardContent}>
         <Image
-          source={{ uri: item.logoUrl }}
+          source={{ uri: item.icon }}
           style={styles.serviceLogo}
           resizeMode="contain"
         />
+        <Text style={styles.serviceName}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
