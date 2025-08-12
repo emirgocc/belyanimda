@@ -1,0 +1,15 @@
+LOGO DOSYASI GEREKLİ
+
+Bu klasöre aşağıdaki dosyaları eklemeniz gerekiyor:
+
+1. logo.png - Ana logo dosyası (32x32 veya 64x64 px)
+   - Header'da "Yanımda" yazısının yanında görünecek
+   - PNG formatında, şeffaf arka plan
+
+2. icon.png - Uygulama ikonu (1024x1024 px)
+3. adaptive-icon.png - Android ikon (1024x1024 px)  
+4. splash.png - Açılış ekranı (1284x2778 px)
+5. favicon.png - Web favicon (32x32 px)
+
+Geçici olarak logo.svg dosyası referans olarak eklendi.
+PNG dosyalarını ekledikten sonra uygulamayı çalıştırabilirsiniz.

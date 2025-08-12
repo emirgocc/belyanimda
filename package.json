@@ -1,0 +1,29 @@
+{
+  "name": "belyanimda-municipality-app",
+  "version": "1.0.0",
+  "description": "Municipality Services Mobile App and Admin Panel",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "mobile-new",
+    "web",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:web\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:web": "cd web && npm run dev",
+    "dev:mobile": "cd mobile-new && npm start",
+    "install:all": "npm install && npm install --workspace=backend && npm install --workspace=mobile-new && npm install --workspace=web && npm install --workspace=shared",
+    "lint": "npm run lint --workspaces",
+    "format": "npm run format --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

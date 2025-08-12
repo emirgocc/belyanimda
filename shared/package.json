@@ -1,0 +1,16 @@
+{
+  "name": "@belyanimda/shared",
+  "version": "1.0.0",
+  "description": "Shared constants and utilities",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./constants": "./constants.js",
+    "./types": "./types.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}
