@@ -216,15 +216,16 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   row: {
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start', // Kartları sırayla baştan diz
     marginBottom: 16,
-    gap: 16, // Bildirim kartları ile aynı margin
+    gap: 12, // Kartlar arası sabit boşluk
   },
   serviceCard: {
-    flex: 1, // Flex kullan ama yayılmasın
+    flex: 0, // Flex'i kapat, sabit boyut kullan
+    width: '30%', // Sabit genişlik
     backgroundColor: '#ffffff',
     borderRadius: 12,
-    marginHorizontal: 0, // Önceki gibi
+    marginHorizontal: 0, // Margin'i kaldır çünkü gap kullanıyoruz
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -234,7 +235,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     minHeight: 120, // Bildirim kartları ile uyumlu yükseklik
-    maxWidth: '32%', // Maksimum genişlik sınırı
   },
   serviceCardContent: {
     flex: 1,
