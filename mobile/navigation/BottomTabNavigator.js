@@ -8,6 +8,11 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 
 const Tab = createBottomTabNavigator();
 
+// HomeScreen için navigation wrapper
+const HomeScreenWrapper = ({ navigation }) => (
+  <HomeScreen navigation={navigation} />
+);
+
 export default function BottomTabNavigator() {
   return (
     <Tab.Navigator
@@ -34,7 +39,7 @@ export default function BottomTabNavigator() {
     >
       <Tab.Screen 
         name="Home" 
-        component={HomeScreen}
+        component={HomeScreenWrapper}
         options={{
           tabBarTestID: 'home-tab',
         }}

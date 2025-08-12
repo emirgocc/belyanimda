@@ -15,7 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { apiService } from '../services/api';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [appState, setAppState] = useState(AppState.currentState);
@@ -74,16 +74,12 @@ export default function HomeScreen() {
   const handleServicePress = async (service) => {
     try {
       if (service.url) {
-        const supported = await Linking.canOpenURL(service.url);
-        if (supported) {
-          await Linking.openURL(service.url);
-        } else {
-          Alert.alert('Hata', 'Bu bağlantı açılamıyor.');
-        }
+        // ServiceWebView ekranına yönlendir
+        navigation.navigate('ServiceWebView', { service });
       }
     } catch (error) {
-      console.error('Bağlantı açılırken hata:', error);
-      Alert.alert('Hata', 'Bağlantı açılırken bir hata oluştu.');
+      console.error('Hizmet açılırken hata:', error);
+      Alert.alert('Hata', 'Hizmet açılırken bir hata oluştu.');
     }
   };
 
