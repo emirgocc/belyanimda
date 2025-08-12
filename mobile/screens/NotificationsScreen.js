@@ -7,6 +7,8 @@ import {
   Alert,
   ActivityIndicator,
   RefreshControl,
+  TouchableOpacity,
+  Linking,
   AppState,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { apiService } from '../services/api';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function NotificationsScreen() {
+export default function NotificationsScreen({ navigation }) {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -90,19 +92,56 @@ export default function NotificationsScreen() {
     }
   };
 
+  const handleNotificationPress = (notification) => {
+    if (notification.url) {
+      // ServiceWebView'da aç
+      navigation.navigate('ServiceWebView', { 
+        service: {
+          name: notification.title,
+          url: notification.url
+        }
+      });
+    }
+  };
+
   const renderNotificationItem = ({ item }) => (
-    <View style={styles.notificationCard}>
+    <TouchableOpacity
+      style={styles.notificationCard}
+      onPress={() => handleNotificationPress(item)}
+      activeOpacity={item.url ? 0.7 : 1}
+    >
       <View style={styles.notificationHeader}>
         <View style={styles.notificationIcon}>
-          <Ionicons name="notifications" size={20} color="#2563eb" />
+          <Ionicons 
+            name={item.url ? "link" : "notifications"} 
+            size={20} 
+            color={item.url ? "#2563eb" : "#6b7280"} 
+          />
         </View>
         <View style={styles.notificationContent}>
           <Text style={styles.notificationTitle}>{item.title}</Text>
           <Text style={styles.notificationDate}>{formatDate(item.createdAt)}</Text>
         </View>
+        {item.url && (
+          <View style={styles.linkIndicator}>
+            <Ionicons name="chevron-forward" size={16} color="#9ca3af" />
+          </View>
+        )}
       </View>
       <Text style={styles.notificationMessage}>{item.description}</Text>
-    </View>
+      
+      {/* Link varsa şık link göstergesi */}
+      {item.url && (
+        <View style={styles.linkContainer}>
+          <View style={styles.linkIconContainer}>
+            <Ionicons name="open-outline" size={14} color="#6b7280" />
+          </View>
+          <Text style={styles.linkText} numberOfLines={1}>
+            {item.url}
+          </Text>
+        </View>
+      )}
+    </TouchableOpacity>
   );
 
   const renderEmptyState = () => (
@@ -270,5 +309,37 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     textAlign: 'center',
     lineHeight: 20,
+  },
+  linkIndicator: {
+    position: 'absolute',
+    right: 16,
+    top: 10,
+    backgroundColor: '#f3f4f6',
+    borderRadius: 12,
+    padding: 4,
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+    paddingLeft: 52,
+    backgroundColor: '#f8fafc',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  linkIconContainer: {
+    width: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  linkText: {
+    flex: 1,
+    fontSize: 12,
+    color: '#6b7280',
+    fontFamily: 'monospace',
   },
 });

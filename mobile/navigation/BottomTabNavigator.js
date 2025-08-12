@@ -13,6 +13,11 @@ const HomeScreenWrapper = ({ navigation }) => (
   <HomeScreen navigation={navigation} />
 );
 
+// NotificationsScreen için navigation wrapper
+const NotificationsScreenWrapper = ({ navigation }) => (
+  <NotificationsScreen navigation={navigation} />
+);
+
 export default function BottomTabNavigator() {
   return (
     <Tab.Navigator
@@ -46,7 +51,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen 
         name="Notifications" 
-        component={NotificationsScreen}
+        component={NotificationsScreenWrapper}
         options={{
           tabBarTestID: 'notifications-tab',
         }}
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderTopWidth: 0,
     position: 'absolute',
-    bottom: Platform.OS === 'android' ? 50 : 40,
+    bottom: Platform.OS === 'android' ? 60 : 40,
     left: 40,
     right: 40,
     height: 60,
