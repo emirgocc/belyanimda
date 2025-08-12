@@ -63,9 +63,6 @@ export default function HomeScreen() {
           style={styles.serviceLogo}
           resizeMode="contain"
         />
-        <Text style={styles.serviceName} numberOfLines={2}>
-          {item.name}
-        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -118,7 +115,7 @@ export default function HomeScreen() {
             data={services}
             renderItem={renderServiceItem}
             keyExtractor={(item) => item.id.toString()}
-            numColumns={2}
+            numColumns={3}
             contentContainerStyle={styles.servicesGrid}
             columnWrapperStyle={styles.row}
             showsVerticalScrollIndicator={false}
@@ -165,6 +162,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 16,
+    paddingHorizontal: 20, // Bildirim kartları ile aynı genişlik için
   },
   loadingContainer: {
     flex: 1,
@@ -182,12 +180,13 @@ const styles = StyleSheet.create({
   row: {
     justifyContent: 'space-between',
     marginBottom: 16,
+    gap: 16, // Bildirim kartları ile aynı margin
   },
   serviceCard: {
     flex: 1,
     backgroundColor: '#ffffff',
     borderRadius: 12,
-    marginHorizontal: 4,
+    marginHorizontal: 0, // Bildirim kartları ile aynı genişlik için
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -196,24 +195,24 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    minHeight: 120,
+    minHeight: 120, // Bildirim kartları ile uyumlu yükseklik
   },
   serviceCardContent: {
     flex: 1,
-    padding: 16,
+    padding: 16, // Bildirim kartları ile uyumlu padding
     alignItems: 'center',
     justifyContent: 'center',
   },
   serviceLogo: {
-    width: 50,
+    width: 50, // Bildirim kartları ile uyumlu logo boyutu
     height: 50,
-    marginBottom: 8,
+    marginBottom: 8, // Uyumlu margin
   },
   serviceName: {
-    fontSize: 12,
+    fontSize: 11, // 3 sütun için daha küçük font
     fontWeight: '600',
     color: '#374151',
     textAlign: 'center',
-    lineHeight: 16,
+    lineHeight: 14, // Daha az line height
   },
 });

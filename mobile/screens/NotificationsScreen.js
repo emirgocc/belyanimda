@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    paddingHorizontal: 20, // Hizmet kartları ile aynı genişlik için
   },
   emptyListContainer: {
     flex: 1,
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 16,
-    marginBottom: 12,
+    marginBottom: 16, // Hizmet kartları ile aynı margin
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: {

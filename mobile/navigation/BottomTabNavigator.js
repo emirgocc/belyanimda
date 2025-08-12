@@ -28,6 +28,8 @@ export default function BottomTabNavigator() {
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
         headerShown: false,
+        tabBarHideOnKeyboard: true,
+
       })}
     >
       <Tab.Screen 
