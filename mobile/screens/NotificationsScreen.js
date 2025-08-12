@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
-    paddingBottom: 90, // Floating navigation için alan bırak
+    paddingBottom: 60, // Floating navigation için alan bırak
   },
   header: {
     backgroundColor: 'transparent',
