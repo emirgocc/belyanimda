@@ -156,6 +156,7 @@ export default function HomeScreen() {
             contentContainerStyle={styles.servicesGrid}
             columnWrapperStyle={styles.row}
             showsVerticalScrollIndicator={false}
+            scrollEnabled={true}
           />
         </View>
       </SafeAreaView>
@@ -220,10 +221,10 @@ const styles = StyleSheet.create({
     gap: 16, // Bildirim kartları ile aynı margin
   },
   serviceCard: {
-    flex: 1,
+    flex: 1, // Flex kullan ama yayılmasın
     backgroundColor: '#ffffff',
     borderRadius: 12,
-    marginHorizontal: 0, // Bildirim kartları ile aynı genişlik için
+    marginHorizontal: 0, // Önceki gibi
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
@@ -233,6 +234,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     minHeight: 120, // Bildirim kartları ile uyumlu yükseklik
+    maxWidth: '32%', // Maksimum genişlik sınırı
   },
   serviceCardContent: {
     flex: 1,
