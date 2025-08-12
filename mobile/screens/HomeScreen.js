@@ -99,7 +99,6 @@ export default function HomeScreen() {
           style={styles.serviceLogo}
           resizeMode="contain"
         />
-        <Text style={styles.serviceName}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -243,15 +242,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   serviceLogo: {
-    width: 50, // Bildirim kartları ile uyumlu logo boyutu
-    height: 50,
-    marginBottom: 8, // Uyumlu margin
-  },
-  serviceName: {
-    fontSize: 11, // 3 sütun için daha küçük font
-    fontWeight: '600',
-    color: '#374151',
-    textAlign: 'center',
-    lineHeight: 14, // Daha az line height
+    width: 70, // Daha büyük logo
+    height: 70,
+    marginBottom: 0, // Margin'i kaldır çünkü isim yok
   },
 });
