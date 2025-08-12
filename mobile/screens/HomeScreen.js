@@ -218,18 +218,20 @@ const styles = StyleSheet.create({
   serviceCard: {
     flex: 0, // Flex'i kapat, sabit boyut kullan
     width: '30%', // Sabit genişlik
-    backgroundColor: '#ffffff',
+    height: 100, // Sabit yükseklik - kare yapmak için
+    backgroundColor: 'transparent',
     borderRadius: 12,
     marginHorizontal: 0, // Margin'i kaldır çünkü gap kullanıyoruz
-    elevation: 3,
-    shadowColor: '#000',
+    elevation: 0,
+    shadowColor: 'transparent',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    minHeight: 120, // Bildirim kartları ile uyumlu yükseklik
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    borderWidth: 1,
+    borderColor: 'rgba(203, 213, 225, 0.6)', // Modern, hafif border
   },
   serviceCardContent: {
     flex: 1,
