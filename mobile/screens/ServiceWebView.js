@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -23,8 +23,7 @@ export default function ServiceWebView({ route, navigation }) {
   const [webViewRef, setWebViewRef] = useState(null);
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showMenu, setShowMenu] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
   const [slideAnim] = useState(new Animated.Value(screenHeight));
 
   const handleBack = () => {
@@ -141,8 +140,6 @@ export default function ServiceWebView({ route, navigation }) {
           ref={setWebViewRef}
           source={{ uri: service.url }}
           style={styles.webview}
-          onLoadStart={() => setIsLoading(true)}
-          onLoadEnd={() => setIsLoading(false)}
           onNavigationStateChange={(navState) => {
             setCanGoBack(navState.canGoBack);
             setCanGoForward(navState.canGoForward);
@@ -154,15 +151,7 @@ export default function ServiceWebView({ route, navigation }) {
           mediaPlaybackRequiresUserAction={false}
         />
 
-        {/* Loading Indicator */}
-        {isLoading && (
-          <View style={styles.loadingOverlay}>
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#2563eb" />
-              <Text style={styles.loadingText}>Yükleniyor...</Text>
-            </View>
-          </View>
-        )}
+
 
         {/* Bottom Sheet Menu */}
         {showMenu && (
@@ -248,34 +237,8 @@ const styles = StyleSheet.create({
   webview: {
     flex: 1,
   },
-  loadingOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingContainer: {
-    backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 12,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  loadingText: {
-    marginTop: 12,
-    fontSize: 16,
-    color: '#6b7280',
-  },
+
+
   overlay: {
     position: 'absolute',
     top: 0,
