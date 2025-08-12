@@ -1,0 +1,30 @@
+[
+    {
+        "id": "689b99833e0ee_5621",
+        "title": "açıldı",
+        "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "url": "https:\\\\www.youtube.com",
+        "createdAt": "2025-08-12T22:44:03+03:00"
+    },
+    {
+        "id": "689b99297ab5a_6207",
+        "title": "Güngören Belediyesi Uygulamasına Hoş Geldiniz!",
+        "description": "Belediye hizmetlerimize kolayca ulaşabileceğiniz yeni mobil uygulamamızı kullanmaya başladınız.",
+        "url": null,
+        "createdAt": "2025-08-12T22:42:33+03:00"
+    },
+    {
+        "id": "689b99297ab61_9324",
+        "title": "Spor Tesisleri Açık",
+        "description": "Tüm spor tesislerimiz hafta içi 08:00-22:00, hafta sonu 09:00-20:00 saatleri arasında hizmet vermektedir.",
+        "url": "https:\/\/sporgungoeren.com",
+        "createdAt": "2025-08-11T22:42:33+03:00"
+    },
+    {
+        "id": "689b99297ac48_7960",
+        "title": "Kültür Sanat Etkinlikleri",
+        "description": "Bu ay düzenlenecek kültür ve sanat etkinlikleri için programı inceleyebilirsiniz.",
+        "url": "https:\/\/gks.gov.tr",
+        "createdAt": "2025-08-10T22:42:33+03:00"
+    }
+]

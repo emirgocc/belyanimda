@@ -1,0 +1,72 @@
+[
+    {
+        "id": "689b99297a4d9_8426",
+        "name": "Güngören Akademi",
+        "icon": "https:\/\/via.placeholder.com\/64x64\/4F46E5\/FFFFFF?text=GA",
+        "url": "https:\/\/gungorenakademi.com",
+        "active": true,
+        "order": 2,
+        "createdAt": "2025-08-12T22:42:33+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    },
+    {
+        "id": "689b99297a5f3_2226",
+        "name": "Spor Güngören",
+        "icon": "https:\/\/via.placeholder.com\/64x64\/059669\/FFFFFF?text=SG",
+        "url": "https:\/\/sporgungoeren.com",
+        "active": true,
+        "order": 3,
+        "createdAt": "2025-08-12T22:42:33+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    },
+    {
+        "id": "689b99297a5fa_9642",
+        "name": "GKS - Kültür Sanat",
+        "icon": "https:\/\/via.placeholder.com\/64x64\/DC2626\/FFFFFF?text=GKS",
+        "url": "https:\/\/gks.gov.tr",
+        "active": true,
+        "order": 4,
+        "createdAt": "2025-08-12T22:42:33+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    },
+    {
+        "id": "689b99297a5ff_3834",
+        "name": "Harunmeli Konağı",
+        "icon": "https:\/\/via.placeholder.com\/64x64\/7C3AED\/FFFFFF?text=HK",
+        "url": "https:\/\/harunmelikonagi.com",
+        "active": true,
+        "order": 5,
+        "createdAt": "2025-08-12T22:42:33+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    },
+    {
+        "id": "689b99297a603_6846",
+        "name": "Bilim Güngören",
+        "icon": "https:\/\/via.placeholder.com\/64x64\/0891B2\/FFFFFF?text=BG",
+        "url": "https:\/\/bilimgungoeren.com",
+        "active": true,
+        "order": 6,
+        "createdAt": "2025-08-12T22:42:33+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    },
+    {
+        "id": "689b99297a606_5811",
+        "name": "Aile Çocuk Kampüsü",
+        "icon": "https:\/\/via.placeholder.com\/64x64\/EA580C\/FFFFFF?text=AÇK",
+        "url": "https:\/\/ailecocukkampusu.com",
+        "active": true,
+        "order": 7,
+        "createdAt": "2025-08-12T22:42:33+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    },
+    {
+        "id": "689b994446c13_8319",
+        "name": "bok",
+        "icon": "https:\/\/img.sofascore.com\/api\/v1\/team\/5962\/image",
+        "url": "https:\/\/lego.com",
+        "active": true,
+        "order": 1,
+        "createdAt": "2025-08-12T22:43:00+03:00",
+        "updatedAt": "2025-08-12T22:43:07+03:00"
+    }
+]
