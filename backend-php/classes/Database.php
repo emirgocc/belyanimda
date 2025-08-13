@@ -190,6 +190,52 @@ class Database {
         throw new Exception('Service not found');
     }
 
+    public function softDeleteService($id) {
+        $services = $this->readServices();
+        
+        foreach ($services as &$service) {
+            if ($service['id'] === $id) {
+                $service['deletedAt'] = date('c');
+                $service['active'] = false;
+                $service['updatedAt'] = date('c');
+                $this->writeServices($services);
+                return $service;
+            }
+        }
+        
+        throw new Exception('Service not found');
+    }
+
+    public function restoreService($id) {
+        $services = $this->readServices();
+        
+        foreach ($services as &$service) {
+            if ($service['id'] === $id) {
+                unset($service['deletedAt']);
+                $service['active'] = true;
+                $service['updatedAt'] = date('c');
+                $this->writeServices($services);
+                return $service;
+            }
+        }
+        
+        throw new Exception('Service not found');
+    }
+
+    public function getActiveServices() {
+        $services = $this->readServices();
+        return array_filter($services, function($service) {
+            return ($service['active'] ?? true) && !isset($service['deletedAt']);
+        });
+    }
+
+    public function getDeletedServices() {
+        $services = $this->readServices();
+        return array_filter($services, function($service) {
+            return isset($service['deletedAt']);
+        });
+    }
+
     public function reorderServices($orderedIds) {
         $services = $this->readServices();
         

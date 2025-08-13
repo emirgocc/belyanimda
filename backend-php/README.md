@@ -172,13 +172,22 @@ chmod 755 database/data  # Linux/Mac
 | `/health` | GET | Sağlık kontrolü | ❌ |
 | `/api/auth/login` | POST | Admin girişi | ❌ |
 | `/api/auth/verify` | GET | Token doğrulama | ✅ |
-| `/api/services` | GET | Hizmet listesi | ❌ |
-| `/api/services` | POST | Yeni hizmet | ✅ |
+| `/api/services` | GET | Tüm hizmetleri listele | ❌ |
+| `/api/services` | POST | Yeni hizmet oluştur | ✅ |
+| `/api/services/{id}` | GET | Hizmet detayı | ❌ |
 | `/api/services/{id}` | PUT | Hizmet güncelle | ✅ |
-| `/api/services/{id}` | DELETE | Hizmet sil | ✅ |
-| `/api/notifications` | GET | Bildirim listesi | ❌ |
-| `/api/notifications` | POST | Yeni bildirim | ✅ |
-| `/mobile/data` | GET | Mobil veri | ❌ |
+| `/api/services/{id}` | DELETE | Hizmet sil (kalıcı) | ✅ |
+| `/api/services/{id}/toggle` | PUT | Hizmet aktif/pasif yap | ✅ |
+| `/api/services/{id}/soft-delete` | PUT | Hizmet yumuşak sil | ✅ |
+| `/api/services/{id}/restore` | PUT | Silinen hizmeti geri yükle | ✅ |
+| `/api/services/active` | GET | Sadece aktif hizmetler | ❌ |
+| `/api/services/deleted` | GET | Silinen hizmetler | ✅ |
+| `/api/services/reorder/batch` | PUT | Hizmetleri sırala | ✅ |
+| `/api/notifications` | GET | Tüm bildirimleri listele | ❌ |
+| `/api/notifications` | POST | Yeni bildirim oluştur | ✅ |
+| `/api/notifications/{id}` | GET | Bildirim detayı | ❌ |
+| `/api/notifications/{id}` | DELETE | Bildirim sil | ✅ |
+| `/mobile/data` | GET | Mobil uygulama için optimize edilmiş veri | ❌ |
 
 ## 🎉 Başarı!
 

@@ -36,7 +36,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// Initialize database
+// Initialize preparing database
 $db = new Database();
 
 // Router
@@ -52,6 +52,11 @@ $router->get('/api/services/{id}', 'ServiceController@show');
 $router->post('/api/services', 'ServiceController@store');
 $router->put('/api/services/{id}', 'ServiceController@update');
 $router->delete('/api/services/{id}', 'ServiceController@destroy');
+$router->put('/api/services/{id}/toggle', 'ServiceController@toggleActive');
+$router->put('/api/services/{id}/soft-delete', 'ServiceController@softDelete');
+$router->put('/api/services/{id}/restore', 'ServiceController@restore');
+$router->get('/api/services/active', 'ServiceController@getActive');
+$router->get('/api/services/deleted', 'ServiceController@getDeleted');
 $router->put('/api/services/reorder/batch', 'ServiceController@reorder');
 
 // Notifications routes

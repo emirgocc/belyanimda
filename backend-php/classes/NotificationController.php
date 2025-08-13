@@ -5,7 +5,9 @@ class NotificationController {
     
     public function __construct() {
         $this->db = new Database();
-        $this->router = new Router();
+        // Router instance'ını dışarıdan al
+        global $router;
+        $this->router = $router;
     }
     
     public function index() {

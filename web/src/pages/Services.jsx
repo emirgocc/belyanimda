@@ -86,10 +86,7 @@ const Services = () => {
 
   const handleToggleActive = async (service) => {
     try {
-      const response = await servicesAPI.update(service.id, {
-        ...service,
-        active: !service.active,
-      });
+      const response = await servicesAPI.toggleActive(service.id);
       if (response.success) {
         toast.success(`Hizmet ${service.active ? 'devre dışı bırakıldı' : 'etkinleştirildi'}`);
         loadServices();

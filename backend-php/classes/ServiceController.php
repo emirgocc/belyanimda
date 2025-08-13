@@ -5,7 +5,9 @@ class ServiceController {
     
     public function __construct() {
         $this->db = new Database();
-        $this->router = new Router();
+        // Router instance'ını dışarıdan al
+        global $router;
+        $this->router = $router;
     }
     
     public function index() {
@@ -148,6 +150,138 @@ class ServiceController {
             } else {
                 $this->serverError('Failed to delete service');
             }
+        }
+    }
+    
+    public function toggleActive() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
+            $this->methodNotAllowed();
+            return;
+        }
+        
+        // Check authentication
+        if (!$this->requireAuth()) {
+            return;
+        }
+        
+        $params = $this->router->getParams();
+        $id = $params['id'] ?? null;
+        
+        if (!$id) {
+            $this->badRequest('Service ID is required');
+            return;
+        }
+        
+        try {
+            $service = $this->db->getServiceById($id);
+            if (!$service) {
+                $this->notFound('Service not found');
+                return;
+            }
+            
+            // Toggle active status
+            $newStatus = !($service['active'] ?? true);
+            $updatedService = $this->db->updateService($id, ['active' => $newStatus]);
+            
+            $message = $newStatus ? 'Service activated successfully' : 'Service deactivated successfully';
+            $this->success($updatedService, $message);
+        } catch (Exception $e) {
+            $this->serverError('Failed to toggle service status');
+        }
+    }
+    
+    public function softDelete() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
+            $this->methodNotAllowed();
+            return;
+        }
+        
+        // Check authentication
+        if (!$this->requireAuth()) {
+            return;
+        }
+        
+        $params = $this->router->getParams();
+        $id = $params['id'] ?? null;
+        
+        if (!$id) {
+            $this->badRequest('Service ID is required');
+            return;
+        }
+        
+        try {
+            $updatedService = $this->db->softDeleteService($id);
+            $this->success($updatedService, 'Service soft deleted successfully');
+        } catch (Exception $e) {
+            if ($e->getMessage() === 'Service not found') {
+                $this->notFound('Service not found');
+            } else {
+                $this->serverError('Failed to soft delete service');
+            }
+        }
+    }
+    
+    public function restore() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
+            $this->methodNotAllowed();
+            return;
+        }
+        
+        // Check authentication
+        if (!$this->requireAuth()) {
+            return;
+        }
+        
+        $params = $this->router->getParams();
+        $id = $params['id'] ?? null;
+        
+        if (!$id) {
+            $this->badRequest('Service ID is required');
+            return;
+        }
+        
+        try {
+            $updatedService = $this->db->restoreService($id);
+            $this->success($updatedService, 'Service restored successfully');
+        } catch (Exception $e) {
+            if ($e->getMessage() === 'Service not found') {
+                $this->notFound('Service not found');
+            } else {
+                $this->serverError('Failed to restore service');
+            }
+        }
+    }
+    
+    public function getActive() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            $this->methodNotAllowed();
+            return;
+        }
+        
+        try {
+            $services = $this->db->getActiveServices();
+            $this->success($services, count($services));
+        } catch (Exception $e) {
+            $this->serverError('Failed to fetch active services');
+        }
+    }
+    
+    public function getDeleted() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            $this->methodNotAllowed();
+            return;
+        }
+        
+        // Check authentication
+        if (!$this->requireAuth()) {
+            return;
+        }
+        
+        try {
+            $services = $this->db->getDeletedServices();
+            $this->success($services, count($services));
+        } catch (Exception $e) {
+            $this->serverError('Failed to fetch deleted services');
         }
     }
     

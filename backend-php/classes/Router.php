@@ -30,6 +30,9 @@ class Router {
         // Remove trailing slash
         $uri = rtrim($uri, '/');
         
+        // Clear previous parameters
+        $this->params = [];
+        
         // Check if route exists
         if (isset($this->routes[$method])) {
             foreach ($this->routes[$method] as $route => $handler) {
@@ -53,6 +56,9 @@ class Router {
             // Extract parameters
             preg_match_all('/\{([^}]+)\}/', $route, $paramNames);
             array_shift($matches); // Remove first match (full string)
+            
+            // Clear previous params
+            $this->params = [];
             
             foreach ($paramNames[1] as $index => $name) {
                 $this->params[$name] = $matches[$index] ?? null;

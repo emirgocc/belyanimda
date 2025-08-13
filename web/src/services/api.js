@@ -77,6 +77,31 @@ export const servicesAPI = {
     return response.data;
   },
   
+  toggleActive: async (id) => {
+    const response = await api.put(`${API_CONFIG.ENDPOINTS.SERVICES}/${id}/toggle`);
+    return response.data;
+  },
+  
+  softDelete: async (id) => {
+    const response = await api.put(`${API_CONFIG.ENDPOINTS.SERVICES}/${id}/soft-delete`);
+    return response.data;
+  },
+  
+  restore: async (id) => {
+    const response = await api.put(`${API_CONFIG.ENDPOINTS.SERVICES}/${id}/restore`);
+    return response.data;
+  },
+  
+  getActive: async () => {
+    const response = await api.get(`${API_CONFIG.ENDPOINTS.SERVICES}/active`);
+    return response.data;
+  },
+  
+  getDeleted: async () => {
+    const response = await api.get(`${API_CONFIG.ENDPOINTS.SERVICES}/deleted`);
+    return response.data;
+  },
+  
   reorder: async (orderedIds) => {
     const response = await api.put(`${API_CONFIG.ENDPOINTS.SERVICES}/reorder/batch`, { orderedIds });
     return response.data;
