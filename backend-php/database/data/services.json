@@ -12,12 +12,12 @@
     {
         "id": "689b99297a5ff_3834",
         "name": "Harunmeli Konağı",
-        "icon": "https:\/\/via.placeholder.com\/64x64\/7C3AED\/FFFFFF?text=HK",
+        "icon": "https:\/\/img.sofascore.com\/api\/v1\/team\/3313\/image",
         "url": "https:\/\/harunmelikonagi.com",
         "active": true,
         "order": 3,
         "createdAt": "2025-08-12T22:42:33+03:00",
-        "updatedAt": "2025-08-14T09:54:40+03:00"
+        "updatedAt": "2025-08-14T10:47:37+03:00"
     },
     {
         "id": "689b99297a603_6846",
@@ -32,12 +32,12 @@
     {
         "id": "689b99297a606_5811",
         "name": "Aile Çocuk Kampüsü",
-        "icon": "https:\/\/via.placeholder.com\/64x64\/EA580C\/FFFFFF?text=AÇK",
+        "icon": "https:\/\/e-belediye.kirklareli.bel.tr\/Content\/Images\/logo.png",
         "url": "https:\/\/ailecocukkampusu.com",
         "active": true,
         "order": 6,
         "createdAt": "2025-08-12T22:42:33+03:00",
-        "updatedAt": "2025-08-14T09:54:40+03:00"
+        "updatedAt": "2025-08-14T10:40:05+03:00"
     },
     {
         "id": "689c400b5dcd9_2142",

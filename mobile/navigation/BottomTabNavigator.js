@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Platform } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
+import ActivitiesScreen from '../screens/ActivitiesScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 
 const Tab = createBottomTabNavigator();
@@ -11,6 +12,11 @@ const Tab = createBottomTabNavigator();
 // HomeScreen için navigation wrapper
 const HomeScreenWrapper = ({ navigation }) => (
   <HomeScreen navigation={navigation} />
+);
+
+// ActivitiesScreen için navigation wrapper
+const ActivitiesScreenWrapper = ({ navigation }) => (
+  <ActivitiesScreen navigation={navigation} />
 );
 
 // NotificationsScreen için navigation wrapper
@@ -27,6 +33,8 @@ export default function BottomTabNavigator() {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Activities') {
+            iconName = focused ? 'construct' : 'construct-outline';
           } else if (route.name === 'Notifications') {
             iconName = focused ? 'notifications' : 'notifications-outline';
           }
@@ -47,6 +55,13 @@ export default function BottomTabNavigator() {
         component={HomeScreenWrapper}
         options={{
           tabBarTestID: 'home-tab',
+        }}
+      />
+      <Tab.Screen 
+        name="Activities" 
+        component={ActivitiesScreenWrapper}
+        options={{
+          tabBarTestID: 'activities-tab',
         }}
       />
       <Tab.Screen 

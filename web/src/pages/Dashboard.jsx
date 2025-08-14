@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { servicesAPI, notificationsAPI } from '../services/api';
+import { servicesAPI, notificationsAPI, activitiesAPI } from '../services/api';
 import { formatDate } from '@belyanimda/shared';
 
 const Dashboard = () => {
@@ -8,6 +8,8 @@ const Dashboard = () => {
     totalServices: 0,
     activeServices: 0,
     totalNotifications: 0,
+    totalActivities: 0,
+    activeActivities: 0,
     recentNotifications: [],
   });
   const [loading, setLoading] = useState(true);
@@ -20,19 +22,23 @@ const Dashboard = () => {
     try {
       setLoading(true);
       
-      const [servicesResponse, notificationsResponse] = await Promise.all([
+      const [servicesResponse, notificationsResponse, activitiesResponse] = await Promise.all([
         servicesAPI.getAll(),
         notificationsAPI.getAll(),
+        activitiesAPI.getAll(),
       ]);
 
-      if (servicesResponse.success && notificationsResponse.success) {
+      if (servicesResponse.success && notificationsResponse.success && activitiesResponse.success) {
         const services = servicesResponse.data;
         const notifications = notificationsResponse.data;
+        const activities = activitiesResponse.data;
         
         setStats({
           totalServices: services.length,
           activeServices: services.filter(s => s.active).length,
           totalNotifications: notifications.length,
+          totalActivities: activities.length,
+          activeActivities: activities.filter(a => a.active).length,
           recentNotifications: notifications
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .slice(0, 5),
@@ -86,39 +92,60 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard
-          title="Toplam Hizmet"
-          value={stats.totalServices}
-          icon="🛠️"
-          color="bg-blue-100"
-          link="/services"
-        />
-        <StatCard
-          title="Aktif Hizmet"
-          value={stats.activeServices}
-          icon="✅"
-          color="bg-green-100"
-          link="/services"
-        />
-        <StatCard
-          title="Toplam Bildirim"
-          value={stats.totalNotifications}
-          icon="🔔"
-          color="bg-yellow-100"
-          link="/notifications"
-        />
-        <StatCard
-          title="Bu Ay"
-          value={stats.recentNotifications.filter(n => {
-            const notifDate = new Date(n.createdAt);
-            const now = new Date();
-            return notifDate.getMonth() === now.getMonth() && 
-                   notifDate.getFullYear() === now.getFullYear();
-          }).length}
-          icon="📅"
-          color="bg-purple-100"
-        />
+      <div className="space-y-6">
+        {/* First Row - 4 cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StatCard
+            title="Toplam Hizmet"
+            value={stats.totalServices}
+            icon="🛠️"
+            color="bg-blue-100"
+            link="/services"
+          />
+          <StatCard
+            title="Aktif Hizmet"
+            value={stats.activeServices}
+            icon="✅"
+            color="bg-green-100"
+            link="/services"
+          />
+          <StatCard
+            title="Toplam Bildirim"
+            value={stats.totalNotifications}
+            icon="🔔"
+            color="bg-yellow-100"
+            link="/notifications"
+          />
+          <StatCard
+            title="Bu Ay"
+            value={stats.recentNotifications.filter(n => {
+              const notifDate = new Date(n.createdAt);
+              const now = new Date();
+              return notifDate.getMonth() === now.getMonth() && 
+                     notifDate.getFullYear() === now.getFullYear();
+            }).length}
+            icon="📅"
+            color="bg-purple-100"
+          />
+        </div>
+        
+        {/* Second Row - 2 cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <StatCard
+            title="Toplam Faaliyet"
+            value={stats.totalActivities}
+            icon="🏗️"
+            color="bg-orange-100"
+            link="/activities"
+          />
+          <StatCard
+            title="Aktif Faaliyet"
+            value={stats.activeActivities}
+            icon="🚧"
+            color="bg-red-100"
+            link="/activities"
+          />
+        </div>
       </div>
 
       {/* Recent Activity */}
@@ -209,6 +236,19 @@ const Dashboard = () => {
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-900">Hizmet Sıralaması</p>
                 <p className="text-sm text-gray-600">Hizmetlerin görünüm sırasını düzenleyin</p>
+              </div>
+            </Link>
+
+            <Link
+              to="/activities"
+              className="flex items-center p-4 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors"
+            >
+              <div className="p-2 bg-orange-500 rounded-lg">
+                <span className="text-white">➕</span>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-900">Yeni Faaliyet Ekle</p>
+                <p className="text-sm text-gray-600">Sisteme yeni faaliyet ekleyin</p>
               </div>
             </Link>
           </div>

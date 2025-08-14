@@ -84,6 +84,28 @@ export const apiService = {
     }
   },
 
+  // Faaliyetleri getir (tümü - admin panel için)
+  getActivities: async () => {
+    try {
+      const response = await retryRequest(() => api.get('/api/activities'));
+      return response;
+    } catch (error) {
+      console.error('Faaliyetler yüklenirken hata:', error);
+      throw error;
+    }
+  },
+
+  // Aktif faaliyetleri getir (mobil uygulama için)
+  getActiveActivities: async () => {
+    try {
+      const response = await retryRequest(() => api.get('/api/activities/active'));
+      return response;
+    } catch (error) {
+      console.error('Aktif faaliyetler yüklenirken hata:', error);
+      throw error;
+    }
+  },
+
   // Health check
   healthCheck: async () => {
     try {
