@@ -131,4 +131,42 @@ export const notificationsAPI = {
   },
 };
 
+// Activities API
+export const activitiesAPI = {
+  getAll: async () => {
+    const response = await api.get('/api/activities');
+    return response.data;
+  },
+  
+  getById: async (id) => {
+    const response = await api.get(`/api/activities/${id}`);
+    return response.data;
+  },
+  
+  create: async (activity) => {
+    const response = await api.post('/api/activities', activity);
+    return response.data;
+  },
+  
+  update: async (id, activity) => {
+    const response = await api.put(`/api/activities/${id}`, activity);
+    return response.data;
+  },
+  
+  delete: async (id) => {
+    const response = await api.delete(`/api/activities/${id}`);
+    return response.data;
+  },
+  
+  toggleActive: async (id) => {
+    const response = await api.put(`/api/activities/${id}/toggle`);
+    return response.data;
+  },
+  
+  getActive: async () => {
+    const response = await api.get('/api/activities/active');
+    return response.data;
+  },
+};
+
 export default api;

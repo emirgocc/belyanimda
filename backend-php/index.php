@@ -65,6 +65,15 @@ $router->get('/api/notifications/{id}', 'NotificationController@show');
 $router->post('/api/notifications', 'NotificationController@store');
 $router->delete('/api/notifications/{id}', 'NotificationController@destroy');
 
+// Activities routes
+$router->get('/api/activities', 'ActivityController@index');
+$router->get('/api/activities/{id}', 'ActivityController@show');
+$router->post('/api/activities', 'ActivityController@store');
+$router->put('/api/activities/{id}', 'ActivityController@update');
+$router->delete('/api/activities/{id}', 'ActivityController@destroy');
+$router->put('/api/activities/{id}/toggle', 'ActivityController@toggleActive');
+$router->get('/api/activities/active', 'ActivityController@getActive');
+
 // Mobile data endpoint
 $router->get('/mobile/data', 'MobileController@data');
 

@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Services from './pages/Services';
+import Activities from './pages/Activities';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 
@@ -23,6 +24,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/services" element={<Services />} />
+                    <Route path="/activities" element={<Activities />} />
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="*" element={<Navigate to="/" replace />} />

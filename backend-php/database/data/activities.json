@@ -1,0 +1,35 @@
+[
+    {
+        "id": "689d8ebf45129_4379",
+        "name": "yol çalışması",
+        "location": "istasyon mah.",
+        "startDate": "2025-08-14",
+        "endDate": "2025-08-19",
+        "department": "Diğer",
+        "active": true,
+        "createdAt": "2025-08-14T10:22:39+03:00",
+        "updatedAt": "2025-08-14T10:22:39+03:00"
+    },
+    {
+        "id": "sample_activity_1",
+        "name": "Yol Çalışması - Merkez Mahalle",
+        "location": "Merkez Mahalle, Ana Caddesi",
+        "startDate": "2025-01-15",
+        "endDate": "2025-01-30",
+        "department": "Fen İşleri Müdürlüğü",
+        "active": true,
+        "createdAt": "2025-01-15T08:00:00+03:00",
+        "updatedAt": "2025-01-15T08:00:00+03:00"
+    },
+    {
+        "id": "sample_activity_2",
+        "name": "Park Düzenleme Çalışması",
+        "location": "Şehir Parkı",
+        "startDate": "2025-01-20",
+        "endDate": "2025-02-05",
+        "department": "Park ve Bahçeler Müdürlüğü",
+        "active": true,
+        "createdAt": "2025-01-20T09:00:00+03:00",
+        "updatedAt": "2025-01-20T09:00:00+03:00"
+    }
+]

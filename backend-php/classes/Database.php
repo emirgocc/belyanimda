@@ -3,11 +3,13 @@ class Database {
     private $dbPath;
     private $servicesFile;
     private $notificationsFile;
+    private $activitiesFile;
 
     public function __construct() {
         $this->dbPath = config('db_path');
         $this->servicesFile = $this->dbPath . '/services.json';
         $this->notificationsFile = $this->dbPath . '/notifications.json';
+        $this->activitiesFile = $this->dbPath . '/activities.json';
         
         $this->initialize();
     }
@@ -28,6 +30,12 @@ class Database {
         if (!file_exists($this->notificationsFile)) {
             $this->writeNotifications([]);
             $this->addSampleNotifications();
+        }
+
+        // Initialize activities file
+        if (!file_exists($this->activitiesFile)) {
+            $this->writeActivities([]);
+            $this->addSampleActivities();
         }
     }
 
@@ -96,6 +104,35 @@ class Database {
         ];
 
         $this->writeServices($sampleServices);
+    }
+
+    private function addSampleActivities() {
+        $sampleActivities = [
+            [
+                'id' => $this->generateId(),
+                'name' => 'Yol Çalışması - Merkez Mahalle',
+                'location' => 'Merkez Mahalle, Ana Caddesi',
+                'startDate' => date('Y-m-d'),
+                'endDate' => date('Y-m-d', strtotime('+15 days')),
+                'department' => 'Fen İşleri Müdürlüğü',
+                'active' => true,
+                'createdAt' => date('c'),
+                'updatedAt' => date('c')
+            ],
+            [
+                'id' => $this->generateId(),
+                'name' => 'Park Düzenleme Çalışması',
+                'location' => 'Şehir Parkı',
+                'startDate' => date('Y-m-d'),
+                'endDate' => date('Y-m-d', strtotime('+20 days')),
+                'department' => 'Park ve Bahçeler Müdürlüğü',
+                'active' => true,
+                'createdAt' => date('c'),
+                'updatedAt' => date('c')
+            ]
+        ];
+
+        $this->writeActivities($sampleActivities);
     }
 
     private function addSampleNotifications() {
@@ -299,6 +336,93 @@ class Database {
         throw new Exception('Notification not found');
     }
 
+    // Activities methods
+    public function getActivities() {
+        return $this->readActivities();
+    }
+
+    public function getActivityById($id) {
+        $activities = $this->readActivities();
+        foreach ($activities as $activity) {
+            if ($activity['id'] === $id) {
+                return $activity;
+            }
+        }
+        return null;
+    }
+
+    public function createActivity($activityData) {
+        $activities = $this->readActivities();
+        
+        $newActivity = [
+            'id' => $this->generateId(),
+            'name' => $activityData['name'],
+            'location' => $activityData['location'],
+            'startDate' => $activityData['startDate'],
+            'endDate' => $activityData['endDate'],
+            'department' => $activityData['department'],
+            'active' => $activityData['active'] ?? true,
+            'createdAt' => date('c'),
+            'updatedAt' => date('c')
+        ];
+        
+        array_unshift($activities, $newActivity); // Add to beginning
+        $this->writeActivities($activities);
+        
+        return $newActivity;
+    }
+
+    public function updateActivity($id, $updateData) {
+        $activities = $this->readActivities();
+        
+        foreach ($activities as &$activity) {
+            if ($activity['id'] === $id) {
+                $activity = array_merge($activity, $updateData);
+                $activity['updatedAt'] = date('c');
+                $this->writeActivities($activities);
+                return $activity;
+            }
+        }
+        
+        return null;
+    }
+
+    public function deleteActivity($id) {
+        $activities = $this->readActivities();
+        
+        foreach ($activities as $index => $activity) {
+            if ($activity['id'] === $id) {
+                $deletedActivity = array_splice($activities, $index, 1)[0];
+                $this->writeActivities($activities);
+                return $deletedActivity;
+            }
+        }
+        
+        throw new Exception('Activity not found');
+    }
+
+    public function toggleActivityActive($id) {
+        $activities = $this->readActivities();
+        
+        foreach ($activities as &$activity) {
+            if ($activity['id'] === $id) {
+                $activity['active'] = !($activity['active'] ?? true);
+                $activity['updatedAt'] = date('c');
+                $this->writeActivities($activities);
+                return $activity;
+            }
+        }
+        
+        return null;
+    }
+
+    public function getActiveActivities() {
+        $activities = $this->readActivities();
+        return array_filter($activities, function($activity) {
+            return ($activity['active'] ?? true);
+        });
+    }
+
     // Helper methods
     private function readServices() {
         $data = file_get_contents($this->servicesFile);
@@ -316,6 +440,15 @@ class Database {
 
     private function writeNotifications($notifications) {
         file_put_contents($this->notificationsFile, json_encode($notifications, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+
+    private function readActivities() {
+        $data = file_get_contents($this->activitiesFile);
+        return json_decode($data, true) ?: [];
+    }
+
+    private function writeActivities($activities) {
+        file_put_contents($this->activitiesFile, json_encode($activities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
     private function generateId() {

@@ -11,6 +11,7 @@ const Layout = ({ children }) => {
   const navigation = [
     { name: 'Dashboard', href: '/', icon: '📊' },
     { name: 'Hizmetler', href: '/services', icon: '🛠️' },
+    { name: 'Faaliyetler', href: '/activities', icon: '🏗️' },
     { name: 'Bildirimler', href: '/notifications', icon: '🔔' },
     { name: 'Ayarlar', href: '/settings', icon: '⚙️' },
   ];

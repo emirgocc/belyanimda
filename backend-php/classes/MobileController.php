@@ -15,6 +15,7 @@ class MobileController {
         try {
             $services = $this->db->getServices();
             $notifications = $this->db->getNotifications();
+            $activities = $this->db->getActiveActivities();
             
             // Filter active services and sort by order
             $activeServices = array_filter($services, function($service) {
@@ -32,9 +33,15 @@ class MobileController {
             
             $recentNotifications = array_slice($notifications, 0, 50);
             
+            // Sort activities by start date (newest first)
+            usort($activities, function($a, $b) {
+                return strtotime($b['startDate']) - strtotime($a['startDate']);
+            });
+            
             $this->success([
                 'services' => $activeServices,
-                'notifications' => $recentNotifications
+                'notifications' => $recentNotifications,
+                'activities' => $activities
             ]);
             
         } catch (Exception $e) {

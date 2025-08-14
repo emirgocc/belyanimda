@@ -16,7 +16,7 @@ const API_CONFIG = {
   
   // Local network (for testing on physical device)
   localNetwork: {
-    baseURL: 'http://192.168.203.175:3000', // TODO: Update with your local IP
+    baseURL: 'http://192.168.1.105:3000', // TODO: Update with your local IP
     timeout: 10000,
     retryAttempts: 3,
   }

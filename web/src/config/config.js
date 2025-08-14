@@ -5,6 +5,7 @@ export const API_CONFIG = {
     AUTH: '/api/auth',
     SERVICES: '/api/services',
     NOTIFICATIONS: '/api/notifications',
+    ACTIVITIES: '/api/activities',
   },
   TIMEOUT: 10000, // 10 seconds
 };
