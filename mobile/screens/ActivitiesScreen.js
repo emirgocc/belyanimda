@@ -27,29 +27,16 @@ const ActivitiesScreen = ({ navigation }) => {
   const fetchActivities = async () => {
     try {
       setLoading(true);
-      console.log('Fetching active activities...');
       const response = await apiService.getActiveActivities();
-      console.log('API Response:', response);
-      console.log('Response success:', response.success);
-      console.log('Response data:', response.data);
-      console.log('Data length:', response.data?.length);
       
       if (response.success) {
-        console.log('Response data type:', typeof response.data);
-        console.log('Response data is array:', Array.isArray(response.data));
-        console.log('Response data keys:', Object.keys(response.data));
-        
         // Eğer data object ise, values'ları al
         let activitiesData = response.data;
         if (typeof response.data === 'object' && !Array.isArray(response.data)) {
           activitiesData = Object.values(response.data);
-          console.log('Converted to array:', activitiesData);
         }
         
         setActivities(activitiesData);
-        console.log('Activities set to state:', activitiesData);
-      } else {
-        console.log('Response not successful');
       }
     } catch (error) {
       console.error('Error fetching activities:', error);

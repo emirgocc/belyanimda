@@ -206,28 +206,16 @@ class ActivityController {
         }
     }
     
-    public function getActive() {
+        public function getActive() {
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             $this->methodNotAllowed();
             return;
         }
-        
+
         try {
-            // Debug: Tüm faaliyetleri al
-            $allActivities = $this->db->getActivities();
-            error_log("All activities count: " . count($allActivities));
-            
-            // Debug: Her faaliyetin active durumunu logla
-            foreach ($allActivities as $activity) {
-                error_log("Activity: " . $activity['name'] . " - Active: " . ($activity['active'] ? 'true' : 'false'));
-            }
-            
             $activities = $this->db->getActiveActivities();
-            error_log("Active activities count: " . count($activities));
-            
             $this->success($activities, count($activities));
         } catch (Exception $e) {
-            error_log("Error in getActive: " . $e->getMessage());
             $this->serverError('Failed to fetch active activities');
         }
     }

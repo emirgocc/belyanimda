@@ -418,15 +418,10 @@ class Database {
 
     public function getActiveActivities() {
         $activities = $this->readActivities();
-        error_log("getActiveActivities - Input activities type: " . gettype($activities));
-        error_log("getActiveActivities - Input activities count: " . count($activities));
         
         $filtered = array_filter($activities, function($activity) {
             return ($activity['active'] ?? true);
         });
-        
-        error_log("getActiveActivities - Filtered count: " . count($filtered));
-        error_log("getActiveActivities - Filtered type: " . gettype($filtered));
         
         return $filtered;
     }
@@ -453,9 +448,6 @@ class Database {
     private function readActivities() {
         $data = file_get_contents($this->activitiesFile);
         $decoded = json_decode($data, true) ?: [];
-        error_log("readActivities - Raw data length: " . strlen($data));
-        error_log("readActivities - Decoded type: " . gettype($decoded));
-        error_log("readActivities - Decoded count: " . count($decoded));
         return $decoded;
     }
 
